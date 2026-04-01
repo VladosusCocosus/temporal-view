@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useCallback } from 'react';
 import { COLORS, DIMENSIONS } from './styles';
 import { WorkflowItem } from './WorkflowItem';
-import type { WorkflowEntry } from './types';
+import type { WorkflowEntry, PanelSide } from './types';
 
 interface SidePanelProps {
   isOpen: boolean;
@@ -9,6 +9,8 @@ interface SidePanelProps {
   baseUrl: string;
   hoveredIndex: number | null;
   onHover: (index: number | null) => void;
+  side: PanelSide;
+  onToggleSide: () => void;
   onClose: () => void;
 }
 
@@ -18,6 +20,8 @@ export function SidePanel({
   baseUrl,
   hoveredIndex,
   onHover,
+  side,
+  onToggleSide,
   onClose,
 }: SidePanelProps) {
   const itemRefs = useRef<Map<number, HTMLDivElement>>(new Map());
@@ -43,13 +47,19 @@ export function SidePanel({
       style={{
         position: 'fixed',
         top: 0,
-        right: 0,
+        ...(side === 'right' ? { right: 0 } : { left: 0 }),
         width: DIMENSIONS.panelWidth,
         height: '100vh',
         background: COLORS.panelBg,
-        borderLeft: `1px solid ${COLORS.panelBorder}`,
+        ...(side === 'right'
+          ? { borderLeft: `1px solid ${COLORS.panelBorder}` }
+          : { borderRight: `1px solid ${COLORS.panelBorder}` }),
         zIndex: 2147483647,
-        transform: isOpen ? 'translateX(0)' : `translateX(${DIMENSIONS.panelWidth}px)`,
+        transform: isOpen
+          ? 'translateX(0)'
+          : side === 'right'
+            ? `translateX(${DIMENSIONS.panelWidth}px)`
+            : `translateX(-${DIMENSIONS.panelWidth}px)`,
         transition: 'transform 0.2s ease',
         display: 'flex',
         flexDirection: 'column',
@@ -86,20 +96,37 @@ export function SidePanel({
             {entries.length}
           </span>
         </div>
-        <button
-          onClick={onClose}
-          style={{
-            background: 'none',
-            border: 'none',
-            color: COLORS.textSecondary,
-            fontSize: 18,
-            cursor: 'pointer',
-            padding: '4px 8px',
-            lineHeight: 1,
-          }}
-        >
-          x
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+          <button
+            onClick={onToggleSide}
+            title={side === 'right' ? 'Move panel to left' : 'Move panel to right'}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: COLORS.textSecondary,
+              fontSize: 14,
+              cursor: 'pointer',
+              padding: '4px 8px',
+              lineHeight: 1,
+            }}
+          >
+            {side === 'right' ? '\u2190' : '\u2192'}
+          </button>
+          <button
+            onClick={onClose}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: COLORS.textSecondary,
+              fontSize: 18,
+              cursor: 'pointer',
+              padding: '4px 8px',
+              lineHeight: 1,
+            }}
+          >
+            x
+          </button>
+        </div>
       </div>
 
       {/* List */}

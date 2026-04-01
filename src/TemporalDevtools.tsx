@@ -5,15 +5,17 @@ import { usePageHoverDetection } from './usePageHoverDetection';
 import { FloatingToggle } from './FloatingToggle';
 import { SidePanel } from './SidePanel';
 import { HighlightOverlay } from './HighlightOverlay';
-import type { TemporalDevtoolsProps } from './types';
+import type { TemporalDevtoolsProps, PanelSide } from './types';
 
 export function TemporalDevtools({
   baseUrl,
   namespace = 'default',
   position = 'bottom-right',
+  defaultSide = 'right',
 }: TemporalDevtoolsProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [side, setSide] = useState<PanelSide>(defaultSide);
   const entries = useWorkflowScanner(namespace);
 
   const handlePageHover = useCallback((index: number | null) => {
@@ -45,6 +47,8 @@ export function TemporalDevtools({
         baseUrl={baseUrl}
         hoveredIndex={hoveredIndex}
         onHover={setHoveredIndex}
+        side={side}
+        onToggleSide={() => setSide((s) => (s === 'right' ? 'left' : 'right'))}
         onClose={() => {
           setIsOpen(false);
           setHoveredIndex(null);

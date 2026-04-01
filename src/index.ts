@@ -1,2 +1,2 @@
 export { TemporalDevtools } from './TemporalDevtools';
-export type { TemporalDevtoolsProps, WorkflowEntry } from './types';
+export type { TemporalDevtoolsProps, WorkflowEntry, PanelSide } from './types';
