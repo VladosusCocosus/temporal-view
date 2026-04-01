@@ -5,6 +5,7 @@ import { COLORS } from './styles';
 interface HighlightOverlayProps {
   target: HTMLElement | null;
   workflowId: string | null;
+  workflowUrl: string | null;
 }
 
 interface Rect {
@@ -14,7 +15,7 @@ interface Rect {
   height: number;
 }
 
-export function HighlightOverlay({ target, workflowId }: HighlightOverlayProps) {
+export function HighlightOverlay({ target, workflowId, workflowUrl }: HighlightOverlayProps) {
   const [rect, setRect] = useState<Rect | null>(null);
 
   useEffect(() => {
@@ -45,6 +46,9 @@ export function HighlightOverlay({ target, workflowId }: HighlightOverlayProps) 
 
   if (!rect || !target) return null;
 
+  const isMac = typeof navigator !== 'undefined' && /Mac/.test(navigator.platform);
+  const modKey = isMac ? '\u2318' : 'Ctrl';
+
   return createPortal(
     <div
       style={{
@@ -65,18 +69,38 @@ export function HighlightOverlay({ target, workflowId }: HighlightOverlayProps) 
         <div
           style={{
             position: 'absolute',
-            top: -24,
+            top: -28,
             right: 0,
-            background: COLORS.primary,
-            color: COLORS.white,
-            fontSize: 11,
-            fontFamily: 'monospace',
-            padding: '2px 6px',
-            borderRadius: 3,
-            whiteSpace: 'nowrap',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
           }}
         >
-          {workflowId}
+          <span
+            style={{
+              background: 'rgba(30, 30, 46, 0.85)',
+              color: COLORS.textSecondary,
+              fontSize: 10,
+              padding: '2px 6px',
+              borderRadius: 3,
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {modKey}+Click to open
+          </span>
+          <span
+            style={{
+              background: COLORS.primary,
+              color: COLORS.white,
+              fontSize: 11,
+              fontFamily: 'monospace',
+              padding: '2px 6px',
+              borderRadius: 3,
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {workflowId}
+          </span>
         </div>
       )}
     </div>,

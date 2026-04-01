@@ -1,6 +1,6 @@
 {
   "name": "temporal-view",
-  "version": "0.0.3-beta",
+  "version": "0.0.5-beta",
   "description": "React devtool for visualizing Temporal workflows on the page",
   "keywords": [
     "temporal",

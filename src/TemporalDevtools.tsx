@@ -20,7 +20,7 @@ export function TemporalDevtools({
     setHoveredIndex(index);
   }, []);
 
-  usePageHoverDetection(isOpen, entries, handlePageHover);
+  usePageHoverDetection(isOpen, entries, baseUrl, handlePageHover);
 
   if (process.env.NODE_ENV === 'production') {
     return null;
@@ -53,6 +53,11 @@ export function TemporalDevtools({
       <HighlightOverlay
         target={hoveredEntry?.element ?? null}
         workflowId={hoveredEntry?.workflowId ?? null}
+        workflowUrl={
+          hoveredEntry
+            ? `${baseUrl}/namespaces/${encodeURIComponent(hoveredEntry.namespace)}/workflows/${encodeURIComponent(hoveredEntry.workflowId)}`
+            : null
+        }
       />
     </>,
     document.body,
