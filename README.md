@@ -1,4 +1,6 @@
-# temporal-view
+# temporal-view 
+[![Build](https://github.com/VladosusCocosus/temporal-view/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/VladosusCocosus/temporal-view/actions/workflows/ci.yml) [![Publish to npm](https://github.com/VladosusCocosus/temporal-view/actions/workflows/publish.yml/badge.svg?branch=main)](https://github.com/VladosusCocosus/temporal-view/actions/workflows/publish.yml)
+
 
 React devtool for visualizing [Temporal](https://temporal.io) workflows on the page. Add `temporal-workflow-id` attributes to your DOM elements, and this package provides a floating panel that lists them, highlights on hover, and links to the Temporal UI on click.
 
