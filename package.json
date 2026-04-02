@@ -1,6 +1,6 @@
 {
   "name": "temporal-view",
-  "version": "0.0.6-beta",
+  "version": "0.0.7-beta",
   "description": "React devtool for visualizing Temporal workflows on the page",
   "keywords": [
     "temporal",
@@ -8,6 +8,14 @@
     "devtools",
     "workflow"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VladosusCocosus/temporal-view.git"
+  },
+  "homepage": "https://github.com/VladosusCocosus/temporal-view#readme",
+  "bugs": {
+    "url": "https://github.com/VladosusCocosus/temporal-view/issues"
+  },
   "license": "ISC",
   "author": "Vladislav Razin",
   "type": "module",
